@@ -251,10 +251,87 @@ summary(painters)
 plot(painters)
 #(a) What plot would you draw for showing the distribution of all the values
 #together? What conclusions would you draw?
+#boxplot
+plot(density(painters$Composition, na.rm = TRUE))
+
 #(b) Draw a display to compare the distributions of the four assessments. Is it
 #necessary to scale the variables first? What information might you lose, if
 #you did? What comments would you make on the distributions individually
 #and as a set?
+ggplot(data=painters) + geom_bar(aes(x=School))
+
 #(c) What would you expect the association between the scores for drawing and
 #those for colour to be? Draw a scatterplot and discuss what the display
 #shows in relation to your expectations
+#scatterplot with correlation values
+library(GGally)
+ggpairs(painters, diag=list(continuous='density'),
+        axisLabels='show')
+
+ggplot(painters, aes(Composition)) + geom_histogram()
+
+# Draw boxplots of outcome (Expression) by group (School) 
+boxplot(painters$Expression ~ painters$School)
+boxplot(painters$Composition ~ painters$School)
+boxplot(painters$Drawing ~ painters$School)
+boxplot(painters$Colour ~ painters$School)
+
+require("RColorBrewer")
+boxplot(painters$Expression ~ painters$School,
+col = brewer.pal(8, "Pastel2"),         
+names  = c("Renais.", "Mannerist", "Seicento", 
+            "Venetian", "Lombard", "16th C.", 
+             "17th C.", "French"),         
+            boxwex = 0.5,  # Width of box as proportion of original. 
+            whisklty = 1,  # Whisker line type; 1 = solid line         
+            staplelty = 0,  # Staple (line at end) type; 0 = none.         
+            outpch = 16,  # Symbols for outliers; 16 = filled circle.         
+            outcol = brewer.pal(8, "Pastel2"),  # Color for outliers.         
+            main = "Expression Ratings of Painters by School from \"painters\" Data set in \"MASS\" Package",         
+            xlab = "Painter's School",         
+            ylab = "Expression Ratings")
+
+
+
+#8. Old Faithful
+#The dataset faithful contains data on the time between eruptions and the duration
+#of the eruption for the Old Faithful geyser in Yellowstone National Park, USA.
+#(a) Draw histograms of the variable eruptions using the functions hist
+#and ggplot (from the package ggplot2). Which histogram do you prefer
+#and why? ggplot produces a warning, suggesting you choose your own
+#binwidth. What binwidth would you choose to convey all the information
+#you want to convey in a clear manner? Would a boxplot be a good alternative
+#here?
+data("faithful")
+summary(faithful)
+plot(faithful)
+hist(faithful$eruptions)
+hist(faithful$eruptions, n=15)
+hist(faithful$eruptions, breaks=seq(1.5,5.25,.25), col="red")
+hist(faithful$eruptions, freq=F, n=15, main="Histogram of Old Faithful Eruption Times", xlab="Duration (mins)") 
+
+qplot(x = waiting, data = faithful, binwidth = 3, main = "Waiting time to next eruption (min)") 
+
+#(b) Draw a scatterplot of the two variables using either plot or ggplot. How
+#would you summarise the information in the plot?
+plot(faithful$eruptions, xlab = "sample number",
+     ylab = "eruption times (min)", main = "Old Faithful Eruption")
+
+ggplot(faithful, aes(x = waiting)) + geom_histogram(binwidth = 1) 
+
+ggplot(faithful, aes(x = waiting, y = ..density..)) + geom_histogram(binwidth = 4) 
+
+ggplot(faithful, aes(x = waiting, y = ..density..)) + geom_histogram(alpha = 0.3) + geom_density(size = 1.5, color = "red") 
+
+plot(faithful$waiting, faithful$eruptions, xlab = "waiting time (min)", 
+     ylab = "eruption time (min)") 
+
+plot(faithful$waiting, faithful$eruptions, pch = 17, col = 2, cex = 1.2, xlab = "waiting times (min)", ylab = "eruption time (min)") 
+
+qplot(x = waiting, y = eruptions, data = faithful, main = "Waiting times (sec) vs. eruptions (min)") 
+
+lm(eruptions ~ waiting, data = faithful) -> faithful.lm
+summary(faithful.lm)
+plot(eruptions ~ waiting, data = faithful, main = "Old Faithful Eruptions", ylab = "duration of eruption (min)", xlab = "time since last eruption (min)")
+
+lines(abline(faithful.lm)) 
