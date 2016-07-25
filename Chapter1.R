@@ -212,11 +212,18 @@ h5 <- ggplot(swiss.df, aes(Catholic)) + geom_histogram()
 h6 <- ggplot(swiss.df, aes(Infant.Mortality)) + geom_histogram()
 grid.arrange(h1, h2, h3, h4, h5, h6, nrow=2)
 
-ggplot(titanic, aes(x=Age, y=Fare)) + geom_point()
-ggplot(titanic, aes(x=Age, y=Fare)) + geom_hex()
-ggplot(titanic, aes(x=Age, y=Fare)) + geom_smooth()
-ggplot(titanic, aes(x=Age, y=Fare)) + geom_line()
-ggplot(titanic, aes(x=Age, y=Fare)) + geom_density2d()
+#boxplot
+library(dplyr)
+SwissV <- select(swiss.df, Fertility:Infant.Mortality)
+#par(mar=c(3.1, 4.1, 1.1, 2.1))
+boxplot(scale(SwissV), pch=16, outcol="red")
+
+#scatterplot with correlation values
+library(GGally)
+ggpairs(swiss.df, diag=list(continuous='density'),
+        axisLabels='show')
+
+
 #(c) Draw a scatterplot of Fertility against % Catholic. Which kind of
 #areas have the lowest fertility rates?
 with(swiss.df, {
@@ -228,4 +235,26 @@ with(swiss.df, {
 
 #(d) What sort of relationship is there between the variables Education and
 #Agriculture?
+ggplot(swiss.df, aes(x=Education, y=Agriculture)) + geom_point()
+ggplot(swiss.df, aes(x=Education, y=Agriculture)) + geom_hex()
+ggplot(swiss.df, aes(x=Education, y=Agriculture)) + geom_smooth()
+ggplot(swiss.df, aes(x=Education, y=Agriculture)) + geom_line()
+ggplot(swiss.df, aes(x=Education, y=Agriculture)) + geom_density2d()
 
+
+#Painters
+#The dataset painters in package MASS contains assessments of 54 classical
+#painters on four characteristics: composition, drawing, colour, and expression.
+#The scores are due to the eighteenth century art critic de Piles.
+data(painters, package="MASS")
+summary(painters)
+plot(painters)
+#(a) What plot would you draw for showing the distribution of all the values
+#together? What conclusions would you draw?
+#(b) Draw a display to compare the distributions of the four assessments. Is it
+#necessary to scale the variables first? What information might you lose, if
+#you did? What comments would you make on the distributions individually
+#and as a set?
+#(c) What would you expect the association between the scores for drawing and
+#those for colour to be? Draw a scatterplot and discuss what the display
+#shows in relation to your expectations
