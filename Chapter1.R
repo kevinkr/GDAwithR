@@ -197,6 +197,7 @@ barchart+xlab("Passenger Class")+ylab("Number of Passengers")+ggtitle("Survival 
 #together? What conclusions would you draw?
 swiss.df <- data.frame(swiss)
 summary(swiss.df)
+dim(swiss.df)
 plot(swiss.df)
 
 
