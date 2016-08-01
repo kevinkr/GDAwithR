@@ -12,6 +12,8 @@ plot(sl.d)
 hist(sl, freq=FALSE)
 lines(sl.d)
 
+
+
 boxplot(sl)
 sl.b <- boxplot(sl)
 summary(sl.b)
