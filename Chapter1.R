@@ -309,8 +309,12 @@ plot(faithful)
 hist(faithful$eruptions)
 hist(faithful$eruptions, n=15)
 hist(faithful$eruptions, breaks=seq(1.5,5.25,.25), col="red")
+erupt <- faithful$eruptions
+erupt.d <- density(erupt)
 hist(faithful$eruptions, freq=F, n=15, main="Histogram of Old Faithful Eruption Times", xlab="Duration (mins)") 
+lines(erupt.d)
 
+boxplot(erupt)
 qplot(x = waiting, data = faithful, binwidth = 3, main = "Waiting time to next eruption (min)") 
 
 #(b) Draw a scatterplot of the two variables using either plot or ggplot. How

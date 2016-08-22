@@ -1,4 +1,5 @@
 #Chapter 3
+library(gridExtra)
 library(ggplot2)
 data(btw2009, package = "flexclust")
 btw2009 <- within(btw2009, Linke2 <- 100*LINKE2/valid2)
@@ -9,7 +10,7 @@ ggplot(btw2009, aes(Linke2)) + geom_bar(binwidth = 1,
 #histogram
 data(galton, package="UsingR")
 ht <- "height (in)"
-par(mfrow=c(1,2), las=1, mar=c(3.1, 4.1, 1.1, 2.1))
+par(mfrow=c(1,2), las=1, mar=c(3.1, 4.1, 2.1, 2.1))
 with(galton, {
   hist(child, xlab="Height", main="Children", col="green")
   hist(parent, xlab=ht, main="Parents", col="blue")})
@@ -119,9 +120,41 @@ ggplot(movies, aes(x = length)) +  xlim(0,180) +
   geom_histogram(binwidth=1)  +
   xlab("Movie lengths in minutes") + ylab("")
 
+<<<<<<< HEAD
 #Distributions by subgroup
 btw2009 <- within(btw2009, Bundesland <- state)
 btw2009 <- within(btw2009, levels(Bundesland) <- c("BW", "BY", "BE", "BB",
                                                    "HB", "HH", "HE", "MV", "NI", "NW","RP", "SL", "SN", "ST", "SH", "TH"))
 ggplot(btw2009, aes(Bundesland, Linke2)) + geom_boxplot(varwidth=TRUE) + ylab("")
+=======
+
+####################
+#Chapter 3 Exercises
+####################
+#1. Galaxies
+#(a) Draw histogram, boxplot, and density estimate of the data
+#(b) Experiment with different binwidths for the histogram and bandwidths? 
+#Which choices are best used for conveying information?
+#(c) How many plots do you need to present the information?
+data(galaxies, package="MASS")
+summary(galaxies)
+#(a)
+hist(galaxies)
+boxplot(galaxies)
+d1 <- density(galaxies)
+plot(d1)
+#(b)
+hist(galaxies, n=50)
+boxplot(galaxies, pch=16)
+#density
+gal <- galaxies/1000
+c(width.SJ(gal, method = "dpi"), width.SJ(gal))
+plot(x = c(5, 35), y = c(0, 0.3), type = "n", bty = "l",
+     xlab = "velocity of galaxy (1000km/s)", ylab = "density")
+rug(gal)
+lines(density(gal, width = 3.25, n = 200), lty = 1)
+lines(density(gal, width = 2.56, n = 200), lty = 3)
+#
+#
+>>>>>>> ca5c57559e8f71bb6271290644db6e4d0a81a9dd
 
