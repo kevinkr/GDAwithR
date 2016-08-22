@@ -120,13 +120,13 @@ ggplot(movies, aes(x = length)) +  xlim(0,180) +
   geom_histogram(binwidth=1)  +
   xlab("Movie lengths in minutes") + ylab("")
 
-<<<<<<< HEAD
+
 #Distributions by subgroup
 btw2009 <- within(btw2009, Bundesland <- state)
 btw2009 <- within(btw2009, levels(Bundesland) <- c("BW", "BY", "BE", "BB",
                                                    "HB", "HH", "HE", "MV", "NI", "NW","RP", "SL", "SN", "ST", "SH", "TH"))
 ggplot(btw2009, aes(Bundesland, Linke2)) + geom_boxplot(varwidth=TRUE) + ylab("")
-=======
+
 
 ####################
 #Chapter 3 Exercises
@@ -156,5 +156,5 @@ lines(density(gal, width = 3.25, n = 200), lty = 1)
 lines(density(gal, width = 2.56, n = 200), lty = 3)
 #
 #
->>>>>>> ca5c57559e8f71bb6271290644db6e4d0a81a9dd
+
 

@@ -18,6 +18,8 @@ names(galaxies)
 hist(galaxies)
 boxplot(galaxies)
 rug(galaxies)
+d1 <- density(galaxies)
+plot(d1)
 #(b) Experiment with different binwidths for the histogram and different bandwidths for the density
 #estimates. What choices do you think are best for conveying the information in the data?
 hist(galaxies, 
@@ -26,6 +28,18 @@ hist(galaxies,
      xlab = "Velocity", 
      ylab = "",
      col = "light blue")
+
+hist(galaxies, n=50)
+boxplot(galaxies, pch=16)
+
+#density
+gal <- galaxies/1000
+c(width.SJ(gal, method = "dpi"), width.SJ(gal))
+plot(x = c(5, 35), y = c(0, 0.3), type = "n", bty = "l",
+     xlab = "velocity of galaxy (1000km/s)", ylab = "density")
+rug(gal)
+lines(density(gal, width = 3.25, n = 200), lty = 1)
+lines(density(gal, width = 2.56, n = 200), lty = 3)
 
 #2. Boston housing
 #How would you describe the distribution of the 14 variables from this plot
